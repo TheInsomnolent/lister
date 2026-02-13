@@ -65,7 +65,7 @@ The app is automatically deployed to GitHub Pages when changes are pushed to the
 
 ### 🤖 GitHub Copilot Automation
 
-**Auto-assign Issues**: New issues are automatically assigned to @copilot for processing.
+**Auto-assign Issues**: New issues are automatically assigned to @copilot for processing. See [AUTO_ASSIGN_SETUP.md](AUTO_ASSIGN_SETUP.md) for configuration details.
 
 **Auto-Merge PRs**: GitHub Copilot PRs are automatically approved and merged once they're ready (title doesn't start with `[WIP]`). See [AUTO_MERGE_SETUP.md](AUTO_MERGE_SETUP.md) for configuration details and required repository settings.
 
