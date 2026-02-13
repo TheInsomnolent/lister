@@ -8,7 +8,6 @@ interface FoodItem {
   chain: string
   location: string
   description: string
-  regional: boolean
 }
 
 interface TrackedItem {
@@ -19,35 +18,40 @@ interface TrackedItem {
 
 const FAST_FOOD_ITEMS: FoodItem[] = [
   // McDonald's Australia
-  { id: 'mcd-grand-angus', name: 'Grand Angus', chain: 'McDonald\'s', location: 'Australia', description: 'Premium Angus beef burger', regional: true },
-  { id: 'mcd-mcoz', name: 'McOz', chain: 'McDonald\'s', location: 'Australia', description: 'Australian-style burger with beetroot', regional: true },
-  { id: 'mcd-aussie-angus', name: 'Aussie Angus', chain: 'McDonald\'s', location: 'Australia', description: 'Angus beef with Aussie toppings', regional: true },
+  { id: 'mcd-grand-angus', name: 'Grand Angus', chain: 'McDonald\'s', location: 'Australia', description: 'Premium Angus beef burger' },
+  { id: 'mcd-mcoz', name: 'McOz', chain: 'McDonald\'s', location: 'Australia', description: 'Australian-style burger with beetroot' },
+  { id: 'mcd-aussie-angus', name: 'Aussie Angus', chain: 'McDonald\'s', location: 'Australia', description: 'Angus beef with Aussie toppings' },
   
   // KFC Australia
-  { id: 'kfc-zinger-stacker', name: 'Zinger Stacker', chain: 'KFC', location: 'Australia', description: 'Triple layer Zinger burger', regional: true },
-  { id: 'kfc-supercharged', name: 'Supercharged Dipping Sauce', chain: 'KFC', location: 'Australia', description: 'Australian exclusive dipping sauce', regional: true },
-  { id: 'kfc-original-tenders', name: 'Original Recipe Tenders', chain: 'KFC', location: 'Australia', description: 'Chicken tenders with secret herbs and spices', regional: true },
+  { id: 'kfc-zinger-stacker', name: 'Zinger Stacker', chain: 'KFC', location: 'Australia', description: 'Triple layer Zinger burger' },
+  { id: 'kfc-supercharged', name: 'Supercharged Dipping Sauce', chain: 'KFC', location: 'Australia', description: 'Australian exclusive dipping sauce' },
+  { id: 'kfc-original-tenders', name: 'Original Recipe Tenders', chain: 'KFC', location: 'Australia', description: 'Chicken tenders with secret herbs and spices' },
   
   // Hungry Jack's (Burger King) Australia
-  { id: 'hj-aussie-burger', name: 'Aussie Burger', chain: 'Hungry Jack\'s', location: 'Australia', description: 'With beetroot, egg, and bacon', regional: true },
-  { id: 'hj-big-jack', name: 'Big Jack', chain: 'Hungry Jack\'s', location: 'Australia', description: 'Flame-grilled whopper-style burger', regional: true },
-  { id: 'hj-storm', name: 'Storm', chain: 'Hungry Jack\'s', location: 'Australia', description: 'Soft serve with chocolate or caramel', regional: true },
+  { id: 'hj-aussie-burger', name: 'Aussie Burger', chain: 'Hungry Jack\'s', location: 'Australia', description: 'With beetroot, egg, and bacon' },
+  { id: 'hj-big-jack', name: 'Big Jack', chain: 'Hungry Jack\'s', location: 'Australia', description: 'Flame-grilled whopper-style burger' },
+  { id: 'hj-storm', name: 'Storm', chain: 'Hungry Jack\'s', location: 'Australia', description: 'Soft serve with chocolate or caramel' },
   
   // Red Rooster Australia
-  { id: 'rr-rooster-roll', name: 'Rooster Roll', chain: 'Red Rooster', location: 'Australia', description: 'Australian chicken chain special', regional: true },
-  { id: 'rr-peri-peri', name: 'Peri Peri Chicken', chain: 'Red Rooster', location: 'Australia', description: 'Spicy grilled chicken', regional: true },
-  { id: 'rr-rippa', name: 'Rippa Sub', chain: 'Red Rooster', location: 'Australia', description: 'Classic Australian chicken sub', regional: true },
+  { id: 'rr-rooster-roll', name: 'Rooster Roll', chain: 'Red Rooster', location: 'Australia', description: 'Australian chicken chain special' },
+  { id: 'rr-peri-peri', name: 'Peri Peri Chicken', chain: 'Red Rooster', location: 'Australia', description: 'Spicy grilled chicken' },
+  { id: 'rr-rippa', name: 'Rippa Sub', chain: 'Red Rooster', location: 'Australia', description: 'Classic Australian chicken sub' },
   
   // Oporto Australia
-  { id: 'oporto-bondi', name: 'Bondi Burger', chain: 'Oporto', location: 'Australia', description: 'Portuguese-style grilled chicken burger', regional: true },
-  { id: 'oporto-sunset', name: 'Sunset Strip', chain: 'Oporto', location: 'Australia', description: 'Grilled chicken strips with chili sauce', regional: true },
-  { id: 'oporto-rapido', name: 'Rapido Wrap', chain: 'Oporto', location: 'Australia', description: 'Portuguese chicken wrap', regional: true },
+  { id: 'oporto-bondi', name: 'Bondi Burger', chain: 'Oporto', location: 'Australia', description: 'Portuguese-style grilled chicken burger' },
+  { id: 'oporto-sunset', name: 'Sunset Strip', chain: 'Oporto', location: 'Australia', description: 'Grilled chicken strips with chili sauce' },
+  { id: 'oporto-rapido', name: 'Rapido Wrap', chain: 'Oporto', location: 'Australia', description: 'Portuguese chicken wrap' },
 ]
 
 export function FastFoodTracker() {
   const [trackedItems, setTrackedItems] = useState<TrackedItem[]>(() => {
-    const stored = localStorage.getItem('fastFoodTrackedItems')
-    return stored ? JSON.parse(stored) : []
+    try {
+      const stored = localStorage.getItem('fastFoodTrackedItems')
+      return stored ? JSON.parse(stored) : []
+    } catch (error) {
+      console.error('Failed to parse tracked items from localStorage:', error)
+      return []
+    }
   })
   const [selectedChain, setSelectedChain] = useState<string>('all')
   const [showConfetti, setShowConfetti] = useState(false)
