@@ -56,7 +56,12 @@ src/
 
 ## 🚢 Deployment
 
-The app is automatically deployed to GitHub Pages when changes are pushed to the `main` branch. The CI workflow:
+The app is automatically deployed to GitHub Pages when:
+- Changes are pushed to the `main` branch
+- A pull request is merged into `main`
+- Manually triggered from the Actions tab
+
+The deployment workflow:
 
 1. Installs dependencies
 2. Runs linter

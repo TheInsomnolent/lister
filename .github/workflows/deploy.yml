@@ -1,9 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Trigger on pushes to main (includes PR merges)
   push:
     branches:
       - main
+  # Allow manual deployment from Actions tab
   workflow_dispatch:
 
 permissions:
