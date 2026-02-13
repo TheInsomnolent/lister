@@ -11,6 +11,8 @@ Visit the live site: [https://theinsomnolent.github.io/lister/](https://theinsom
 - **Business Idea Generator** - Generate ridiculous startup ideas with a pokie machine-style randomizer
 - **Fast Food Badge Tracker** - Track regionally unique fast food items and earn badges (focusing on Australian specialties)
 
+💡 **Want to add a new app?** Check out [IDEAS.md](IDEAS.md) for a list of app ideas and contribute your own!
+
 ## 🛠️ Development
 
 ```bash
