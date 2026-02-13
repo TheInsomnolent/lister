@@ -1,0 +1,20 @@
+name: Auto-assign Issues to Copilot
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  assign-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to copilot
+        run: |
+          gh issue edit "${{ github.event.issue.number }}" \
+            --add-assignee copilot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
