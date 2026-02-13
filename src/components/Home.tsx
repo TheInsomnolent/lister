@@ -12,6 +12,11 @@ export function Home() {
           <h2>💡 Business Idea Generator</h2>
           <p>Generate random, ridiculous business ideas with the click of a button!</p>
         </Link>
+
+        <Link to="/apps/fast-food-tracker" className="app-card">
+          <h2>🍔 Fast Food Badge Tracker</h2>
+          <p>Track regionally unique fast food items and earn badges! Focus on Australian specialties.</p>
+        </Link>
       </div>
 
       <div className="info">
