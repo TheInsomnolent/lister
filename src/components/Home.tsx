@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './Home.css'
 
 export function Home() {
@@ -7,10 +8,10 @@ export function Home() {
       <p className="subtitle">A collection of one-page app prototypes</p>
       
       <div className="apps-grid">
-        <a href="/lister/apps/business-idea-generator" className="app-card">
+        <Link to="/apps/business-idea-generator" className="app-card">
           <h2>💡 Business Idea Generator</h2>
           <p>Generate random, ridiculous business ideas with the click of a button!</p>
-        </a>
+        </Link>
       </div>
 
       <div className="info">
