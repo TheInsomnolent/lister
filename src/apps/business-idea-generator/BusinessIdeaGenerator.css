@@ -84,3 +84,35 @@
 .info-box p {
   margin: 0;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .business-idea-generator h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .idea-display {
+    padding: 2rem 1rem;
+    margin: 1.5rem 0;
+    font-size: 1.4rem;
+    min-height: 100px;
+  }
+
+  .roll-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    width: 100%;
+  }
+
+  .info-box {
+    margin-top: 2rem;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}

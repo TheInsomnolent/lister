@@ -47,3 +47,34 @@
 .info h2 {
   color: #fff;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .home h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .apps-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .app-card {
+    padding: 1.5rem;
+  }
+
+  .app-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .info {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+}
