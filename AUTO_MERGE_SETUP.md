@@ -73,13 +73,11 @@ You can modify the merge strategy in the workflow file:
 
 You can customize the workflow by editing `.github/workflows/auto-merge-copilot.yml`:
 
-- **Change merge strategy**: Modify the `gh pr merge` command flags
+- **Change merge strategy**: Modify the `gh pr merge` command flags (note: when using squash merge, the `--body` flag should be preserved to maintain issue-closing functionality)
 - **Add conditions**: Modify the `if` condition to add more checks (e.g., check for specific labels)
 - **Change branch pattern**: Modify the branch check if Copilot uses a different pattern
 - **Add notifications**: Add steps to notify on success/failure
 - **Require specific checks**: The auto-merge will wait for all required checks to pass
-
-**Important**: The workflow includes `--body` flag to pass the PR description to the squash commit message. This ensures issue-closing keywords (like "closes #123") are preserved in the final commit message, allowing GitHub to automatically close linked issues when the PR merges.
 
 ## Security Considerations
 
