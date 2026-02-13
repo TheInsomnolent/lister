@@ -60,6 +60,10 @@ The app is automatically deployed to GitHub Pages when changes are pushed to the
 3. Builds the app
 4. Deploys to GitHub Pages
 
+### 🤖 Auto-Merge for Copilot PRs
+
+GitHub Copilot PRs are automatically approved and merged once they're ready (title doesn't start with `[WIP]`). See [AUTO_MERGE_SETUP.md](AUTO_MERGE_SETUP.md) for configuration details and required repository settings.
+
 ## 📝 Adding New Apps
 
 1. Create a new directory in `src/apps/`
