@@ -24,8 +24,8 @@ concurrency:
 
 jobs:
   build:
-    # Only run if push event OR if PR was actually merged (not just closed)
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    # Only run if push event, manual trigger, OR if PR was actually merged (not just closed)
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
