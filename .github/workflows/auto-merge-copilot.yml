@@ -35,7 +35,10 @@ jobs:
 
       - name: Enable auto-merge
         run: |
-          gh pr merge --auto --squash "${{ github.event.pull_request.number }}"
+          # Use PR body as commit message body to preserve "closes #N" keywords
+          gh pr merge --auto --squash "${{ github.event.pull_request.number }}" \
+            --subject "${{ github.event.pull_request.title }}" \
+            --body "${{ github.event.pull_request.body }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}

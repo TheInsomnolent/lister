@@ -11,6 +11,7 @@ The `.github/workflows/auto-merge-copilot.yml` workflow:
 3. **Checks** that the PR title does NOT start with `[WIP]`
 4. **Approves** the PR automatically using GitHub CLI
 5. **Enables auto-merge** with squash merge strategy (merges when all checks pass)
+6. **Preserves issue links** by including the PR body in the squash commit message, which ensures GitHub's auto-close keywords (like "closes #123") are preserved
 
 ## Required Repository Settings
 
@@ -61,8 +62,10 @@ To enable this automation, you need to configure the following settings in your 
 - `pull-requests: write` - To approve and enable auto-merge
 
 ### Merge Strategy
-The workflow uses `--squash` merge by default, which combines all commits into a single commit on the main branch. You can modify this in the workflow file:
-- `--squash` - Squash and merge
+The workflow uses `--squash` merge by default, which combines all commits into a single commit on the main branch. The workflow explicitly includes the PR body (description) in the squash commit message to preserve issue-closing keywords like "closes #123", "fixes #456", or "resolves #789". This ensures that linked issues are automatically closed when the PR is merged.
+
+You can modify the merge strategy in the workflow file:
+- `--squash` - Squash and merge (default)
 - `--merge` - Create a merge commit
 - `--rebase` - Rebase and merge
 
@@ -75,6 +78,8 @@ You can customize the workflow by editing `.github/workflows/auto-merge-copilot.
 - **Change branch pattern**: Modify the branch check if Copilot uses a different pattern
 - **Add notifications**: Add steps to notify on success/failure
 - **Require specific checks**: The auto-merge will wait for all required checks to pass
+
+**Important**: The workflow includes `--body` flag to pass the PR description to the squash commit message. This ensures issue-closing keywords (like "closes #123") are preserved in the final commit message, allowing GitHub to automatically close linked issues when the PR merges.
 
 ## Security Considerations
 
