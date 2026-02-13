@@ -1,13 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger on direct pushes to main
+  # Trigger on pushes to main (includes PR merges)
   push:
-    branches:
-      - main
-  # Trigger when a PR is merged into main
-  pull_request:
-    types: [closed]
     branches:
       - main
   # Allow manual deployment from Actions tab
@@ -24,8 +19,6 @@ concurrency:
 
 jobs:
   build:
-    # Only run if push event, manual trigger, OR if PR was actually merged (not just closed)
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
