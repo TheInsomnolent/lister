@@ -40,4 +40,4 @@ Apps that have been implemented:
 
 ## 🚀 Building Your Idea
 
-Ready to build one of these ideas? Check out the README.md for instructions on [adding new apps](README.md#-adding-new-apps).
+Ready to build one of these ideas? Check out the [README.md](README.md) for instructions on adding new apps.
