@@ -98,6 +98,11 @@
   border-color: #646cff;
 }
 
+.cs-number-input--readonly {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .cs-preview {
   border: 1px solid #333;
   border-radius: 8px;

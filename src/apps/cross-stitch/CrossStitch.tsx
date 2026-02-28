@@ -267,8 +267,12 @@ export function CrossStitch() {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [imgSize, setImgSize]   = useState<[number, number]>([0, 0])
   const [numColors, setNumColors] = useState(8)
-  const [stitchW, setStitchW]   = useState(50)
-  const [stitchH, setStitchH]   = useState(50)
+  const [stitchSize, setStitchSize] = useState(50)
+
+  // Derive width/height locked to the image's aspect ratio
+  const heightToWidthRatio = imgSize[0] > 0 ? imgSize[1] / imgSize[0] : 1
+  const stitchW = stitchSize
+  const stitchH = Math.max(5, Math.round(stitchSize * heightToWidthRatio))
   const [pattern, setPattern]   = useState<CrossStitchPattern | null>(saved.pattern)
   const [stitched, setStitched] = useState<boolean[]>(saved.stitched)
   const [zoom, setZoom]         = useState(1)
@@ -340,8 +344,7 @@ export function CrossStitch() {
       const img = new Image()
       img.onload = () => {
         setImgSize([img.naturalWidth, img.naturalHeight])
-        setStitchW(Math.max(5, Math.round(img.naturalWidth  / 4)))
-        setStitchH(Math.max(5, Math.round(img.naturalHeight / 4)))
+        setStitchSize(Math.max(5, Math.round(img.naturalWidth / 4)))
       }
       img.src = url
     }
@@ -457,34 +460,45 @@ export function CrossStitch() {
               <div className="cs-range-labels"><span>2</span><span>30</span></div>
             </div>
 
-            <div className="cs-field-row">
-              <div className="cs-field">
-                <label htmlFor="cs-width">Width (stitches)</label>
-                <input
-                  id="cs-width"
-                  type="number"
-                  min={5}
-                  max={500}
-                  value={stitchW}
-                  onChange={e => setStitchW(Math.max(5, +e.target.value))}
-                  className="cs-number-input"
-                />
-              </div>
-              <div className="cs-field">
-                <label htmlFor="cs-height">Height (stitches)</label>
-                <input
-                  id="cs-height"
-                  type="number"
-                  min={5}
-                  max={500}
-                  value={stitchH}
-                  onChange={e => setStitchH(Math.max(5, +e.target.value))}
-                  className="cs-number-input"
-                />
+            <div className="cs-field">
+              <label htmlFor="cs-size">
+                Grid Size: <strong>{stitchW} × {stitchH} stitches</strong>
+              </label>
+              <input
+                id="cs-size"
+                type="range"
+                min={5}
+                max={500}
+                value={stitchSize}
+                onChange={e => setStitchSize(+e.target.value)}
+                className="cs-range"
+              />
+              <div className="cs-range-labels"><span>5</span><span>500</span></div>
+              <div className="cs-field-row">
+                <div className="cs-field">
+                  <label htmlFor="cs-width-display">Width (stitches)</label>
+                  <input
+                    id="cs-width-display"
+                    type="number"
+                    value={stitchW}
+                    readOnly
+                    className="cs-number-input cs-number-input--readonly"
+                  />
+                </div>
+                <div className="cs-field">
+                  <label htmlFor="cs-height-display">Height (stitches)</label>
+                  <input
+                    id="cs-height-display"
+                    type="number"
+                    value={stitchH}
+                    readOnly
+                    className="cs-number-input cs-number-input--readonly"
+                  />
+                </div>
               </div>
             </div>
 
-            <p className="cs-hint">Dimensions default to ¼ of the image pixel count.</p>
+            <p className="cs-hint">Height is locked to the image's aspect ratio.</p>
 
             <button
               className="cs-generate-btn"
