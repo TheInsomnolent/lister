@@ -17,6 +17,11 @@ export function Home() {
           <h2>🍔 Fast Food Badge Tracker</h2>
           <p>Track regionally unique fast food items and earn badges! Focus on Australian specialties.</p>
         </Link>
+
+        <Link to="/apps/cross-stitch" className="app-card">
+          <h2>🧵 Cross-Stitch</h2>
+          <p>Upload an image and generate a printable cross-stitch pattern with a colour key and stitch-progress tracker.</p>
+        </Link>
       </div>
 
       <div className="info">

@@ -1,0 +1,378 @@
+/* ── Cross-Stitch app styles ─────────────────────────────────────────────── */
+
+.cross-stitch {
+  width: 100%;
+}
+
+/* Header */
+.cs-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.cs-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.cs-header p {
+  color: #aaa;
+}
+
+/* ── Setup view ─────────────────────────────────────────────────────────── */
+
+.cs-setup {
+  display: flex;
+  justify-content: center;
+}
+
+.cs-form {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cs-field label {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.cs-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.cs-file-input {
+  background: #242424;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.cs-file-input:hover {
+  border-color: #646cff;
+}
+
+.cs-range {
+  width: 100%;
+  accent-color: #646cff;
+  cursor: pointer;
+}
+
+.cs-range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.cs-number-input {
+  background: #242424;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  color: #fff;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cs-number-input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.cs-preview {
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cs-preview img {
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.cs-preview-size {
+  font-size: 0.8rem;
+  color: #888;
+  padding: 0.4rem;
+  margin: 0;
+}
+
+.cs-hint {
+  font-size: 0.8rem;
+  color: #777;
+  margin: 0;
+}
+
+.cs-generate-btn {
+  background: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.cs-generate-btn:hover:not(:disabled) {
+  background: #535bf2;
+  transform: translateY(-1px);
+}
+
+.cs-generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Pattern view ───────────────────────────────────────────────────────── */
+
+.cs-pattern-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Toolbar */
+.cs-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+}
+
+.cs-btn {
+  background: #242424;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+
+.cs-btn:hover {
+  border-color: #646cff;
+}
+
+.cs-btn-icon {
+  padding: 0.4rem 0.65rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cs-btn-primary {
+  background: #646cff;
+  border-color: #646cff;
+}
+
+.cs-btn-primary:hover {
+  background: #535bf2;
+  border-color: #535bf2;
+}
+
+.cs-btn-danger {
+  background: #7f1d1d;
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.cs-btn-danger:hover {
+  background: #991b1b;
+}
+
+.cs-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cs-zoom-label {
+  font-size: 0.85rem;
+  min-width: 3rem;
+  text-align: center;
+  color: #ccc;
+}
+
+.cs-progress-text {
+  font-size: 0.85rem;
+  color: #aaa;
+  flex: 1;
+  text-align: center;
+}
+
+.cs-toolbar-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Scrollable canvas container */
+.cs-canvas-container {
+  overflow: auto;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #111;
+  max-height: calc(100vh - 220px);
+  touch-action: pan-x pan-y;
+  cursor: crosshair;
+}
+
+.cs-canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* Colour key */
+.cs-key {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+}
+
+.cs-key h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.cs-key-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cs-key-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 56px;
+}
+
+.cs-key-swatch {
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-key-symbol {
+  font-family: monospace;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.cs-key-label {
+  font-size: 0.65rem;
+  color: #aaa;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* ── Print styles ────────────────────────────────────────────────────────── */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .cross-stitch {
+    color: #000;
+  }
+
+  .cs-canvas-container {
+    max-height: none;
+    overflow: visible;
+    border: none;
+    background: #fff;
+  }
+
+  .cs-key {
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #000;
+    page-break-before: always;
+  }
+
+  .cs-key-label {
+    color: #333;
+  }
+
+  .cs-key-swatch {
+    border: 1px solid #999;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* ── Mobile responsive ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .cs-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .cs-form {
+    padding: 1.25rem;
+  }
+
+  .cs-toolbar {
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .cs-progress-text {
+    width: 100%;
+    flex: none;
+  }
+
+  .cs-canvas-container {
+    max-height: calc(100vh - 280px);
+  }
+
+  .cs-key-item {
+    width: 48px;
+  }
+
+  .cs-key-swatch {
+    width: 36px;
+    height: 36px;
+  }
+}
