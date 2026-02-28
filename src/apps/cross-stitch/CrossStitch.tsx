@@ -393,11 +393,12 @@ export function CrossStitch() {
 
   // ── Actions ─────────────────────────────────────────────────────────────
   const handleClear = () => {
-    if (!pattern) return
-    if (!window.confirm('Clear all progress? This cannot be undone.')) return
-    const cleared = new Array(pattern.width * pattern.height).fill(false)
-    setStitched(cleared)
-    localStorage.setItem(LS_STITCHED, JSON.stringify(cleared))
+    if (!window.confirm('Clear the pattern and all progress? This cannot be undone.')) return
+    localStorage.removeItem(LS_PATTERN)
+    localStorage.removeItem(LS_STITCHED)
+    setPattern(null)
+    setStitched([])
+    setView('setup')
   }
 
   const handleDownloadPdf = () => window.print()
