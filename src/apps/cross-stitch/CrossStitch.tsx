@@ -9,7 +9,7 @@ interface PaletteEntry {
   rgb: RGB
   symbol: string
   label: string
-  type: 'full' | 'half' | 'empty'
+  type: 'full' | 'empty'
 }
 
 interface CrossStitchPattern {
@@ -25,12 +25,6 @@ const FULL_SYMS = [
   '✕','●','■','▲','◆','★','♥','▼','✦','❋',
   '✿','⊕','⊗','◈','◉','▸','◂','⬟','⬢','⊞',
   '⊠','⊡','⊟','⋈','⋆','⌘','☀','✴','❖','◐',
-]
-
-const HALF_SYMS = [
-  '╳','○','□','△','◇','☆','♡','▽','✧','❊',
-  '✾','⊖','⊘','◧','◎','▷','◁','⬠','⬡','⋉',
-  '✶','⌂','☁','✵','❒','⊸','⋄','≡','⌾','⋮',
 ]
 
 // ── Colour name helper ───────────────────────────────────────────────────────
@@ -49,7 +43,7 @@ function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
   return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)]
 }
 
-function colorLabel(rgb: RGB, isHalf: boolean, idx: number): string {
+function colorLabel(rgb: RGB, idx: number): string {
   const [h, s, l] = rgbToHsl(...rgb)
   let name: string
   if (s < 15) {
@@ -72,8 +66,7 @@ function colorLabel(rgb: RGB, isHalf: boolean, idx: number): string {
     name = 'Pink'
   }
   const shade = l < 35 ? 'Dark ' : l > 65 ? 'Light ' : ''
-  const prefix = isHalf ? 'Half ' : ''
-  return `${prefix}${shade}${name} ${idx + 1}`
+  return `${shade}${name} ${idx + 1}`
 }
 
 function dist2(a: RGB, b: RGB): number {
@@ -133,18 +126,10 @@ function buildPattern(
   const fullColors = medianCut(samples, numColors)
   const WHITE: RGB = [255, 255, 255]
 
-  // 3. Build palette: full → half → empty(white)
+  // 3. Build palette: full → empty(white)
   const palette: PaletteEntry[] = []
   fullColors.forEach((rgb, i) => {
-    palette.push({ rgb, symbol: FULL_SYMS[i % FULL_SYMS.length], label: colorLabel(rgb, false, i), type: 'full' })
-  })
-  fullColors.forEach((rgb, i) => {
-    const half: RGB = [
-      Math.round((rgb[0] + 255) / 2),
-      Math.round((rgb[1] + 255) / 2),
-      Math.round((rgb[2] + 255) / 2),
-    ]
-    palette.push({ rgb: half, symbol: HALF_SYMS[i % HALF_SYMS.length], label: colorLabel(half, true, i), type: 'half' })
+    palette.push({ rgb, symbol: FULL_SYMS[i % FULL_SYMS.length], label: colorLabel(rgb, i), type: 'full' })
   })
   const emptyIdx = palette.length
   palette.push({ rgb: WHITE, symbol: ' ', label: 'Empty', type: 'empty' })
