@@ -25,6 +25,13 @@ const FULL_SYMS = [
   '✕','●','■','▲','◆','★','♥','▼','✦','❋',
   '✿','⊕','⊗','◈','◉','▸','◂','⬟','⬢','⊞',
   '⊠','⊡','⊟','⋈','⋆','⌘','☀','✴','❖','◐',
+  '◑','◒','◓','⬤','⬡','⬠','⬣','⊹','✶','✸',
+  '✹','✺','✻','✼','✽','✾','❀','❁','❂','❃',
+  '❄','❅','❆','❇','❈','❉','❊','✠','⁂','※',
+  '⊛','⊜','⊝','▣','▤','▥','▦','⊢','⊣','⊤',
+  '⊥','⊦','⊧','⊨','⊩','⊪','⊫','⊬','⊭','⊮',
+  '⊯','⊰','⊱','⊲','⊳','⊴','⊵','⊶','⊷','⊸',
+  '⊺','⊻','⊼','⊽','⊾','⋀','⋁','⋂','⋃','⋄',
 ]
 
 // ── Colour name helper ───────────────────────────────────────────────────────
@@ -325,8 +332,8 @@ export function CrossStitch() {
       const img = new Image()
       img.onload = () => {
         setImgSize([img.naturalWidth, img.naturalHeight])
-        setStitchW(Math.max(5, Math.round(img.naturalWidth  / 4)))
-        setStitchH(Math.max(5, Math.round(img.naturalHeight / 4)))
+        setStitchW(Math.max(5, Math.round(img.naturalWidth  / 20)))
+        setStitchH(Math.max(5, Math.round(img.naturalHeight / 20)))
       }
       img.src = url
     }
@@ -434,12 +441,12 @@ export function CrossStitch() {
                 id="cs-colors"
                 type="range"
                 min={2}
-                max={30}
+                max={100}
                 value={numColors}
                 onChange={e => setNumColors(+e.target.value)}
                 className="cs-range"
               />
-              <div className="cs-range-labels"><span>2</span><span>30</span></div>
+              <div className="cs-range-labels"><span>2</span><span>100</span></div>
             </div>
 
             <div className="cs-field-row">
@@ -469,7 +476,7 @@ export function CrossStitch() {
               </div>
             </div>
 
-            <p className="cs-hint">Dimensions default to ¼ of the image pixel count.</p>
+            <p className="cs-hint">Dimensions default to 1/20 of the image pixel count.</p>
 
             <button
               className="cs-generate-btn"
