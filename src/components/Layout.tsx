@@ -1,6 +1,16 @@
 import { Link, Outlet } from 'react-router-dom'
 import './Layout.css'
 
+async function clearCacheAndReload() {
+  localStorage.clear()
+  sessionStorage.clear()
+  if ('caches' in window) {
+    const cacheNames = await caches.keys()
+    await Promise.all(cacheNames.map((name) => caches.delete(name)))
+  }
+  window.location.reload()
+}
+
 export function Layout() {
   return (
     <div className="layout">
@@ -19,6 +29,9 @@ export function Layout() {
             <Link to="/apps/cross-stitch">Cross-Stitch</Link>
           </li>
         </ul>
+        <button className="clear-cache-btn" onClick={clearCacheAndReload}>
+          Clear Cache & Reload
+        </button>
       </nav>
       <main className="main-content">
         <Outlet />

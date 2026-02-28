@@ -45,6 +45,24 @@
   color: #646cff;
 }
 
+.clear-cache-btn {
+  margin-left: auto;
+  padding: 0.4rem 0.9rem;
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.clear-cache-btn:hover {
+  border-color: #646cff;
+  color: #646cff;
+}
+
 .main-content {
   flex: 1;
   padding: 2rem;
@@ -74,5 +92,10 @@
 
   .main-content {
     padding: 1rem;
+  }
+
+  .clear-cache-btn {
+    margin-left: 0;
+    width: 100%;
   }
 }
