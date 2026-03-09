@@ -111,6 +111,53 @@ function medianCut(pixels: RGB[], k: number): RGB[] {
   ] as RGB)
 }
 
+// ── Smoothing ────────────────────────────────────────────────────────────────
+
+const SMOOTHING_LABELS = ['None', 'Soft', 'Medium', 'Strong'] as const
+
+/** Separable box blur – two 1-D passes approximate a Gaussian. radius 0 = no-op. */
+function blurImageData(src: ImageData, radius: number): ImageData {
+  if (radius === 0) return src
+  const { width, height } = src
+  const input = src.data
+  const horiz = new Uint8ClampedArray(input.length)
+  const output = new Uint8ClampedArray(input.length)
+
+  // Horizontal pass
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let r = 0, g = 0, b = 0, a = 0, count = 0
+      for (let dx = -radius; dx <= radius; dx++) {
+        const nx = Math.max(0, Math.min(width - 1, x + dx))
+        const off = (y * width + nx) * 4
+        r += input[off]; g += input[off + 1]; b += input[off + 2]; a += input[off + 3]
+        count++
+      }
+      const off = (y * width + x) * 4
+      horiz[off] = Math.round(r / count); horiz[off + 1] = Math.round(g / count)
+      horiz[off + 2] = Math.round(b / count); horiz[off + 3] = Math.round(a / count)
+    }
+  }
+
+  // Vertical pass
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let r = 0, g = 0, b = 0, a = 0, count = 0
+      for (let dy = -radius; dy <= radius; dy++) {
+        const ny = Math.max(0, Math.min(height - 1, y + dy))
+        const off = (ny * width + x) * 4
+        r += horiz[off]; g += horiz[off + 1]; b += horiz[off + 2]; a += horiz[off + 3]
+        count++
+      }
+      const off = (y * width + x) * 4
+      output[off] = Math.round(r / count); output[off + 1] = Math.round(g / count)
+      output[off + 2] = Math.round(b / count); output[off + 3] = Math.round(a / count)
+    }
+  }
+
+  return new ImageData(output, width, height)
+}
+
 // ── Pattern building ─────────────────────────────────────────────────────────
 
 function buildPattern(
@@ -260,6 +307,7 @@ export function CrossStitch() {
   const [imgSize, setImgSize]   = useState<[number, number]>([0, 0])
   const [numColors, setNumColors] = useState(8)
   const [stitchSize, setStitchSize] = useState(50)
+  const [smoothing, setSmoothing] = useState(1)
 
   // Derive width/height locked to the image's aspect ratio
   const heightToWidthRatio = imgSize[0] > 0 ? imgSize[1] / imgSize[0] : 1
@@ -354,7 +402,8 @@ export function CrossStitch() {
       const img = new Image()
       img.onload = () => {
         ctx.drawImage(img, 0, 0)
-        const imgData = ctx.getImageData(0, 0, imgSize[0], imgSize[1])
+        const rawData = ctx.getImageData(0, 0, imgSize[0], imgSize[1])
+        const imgData = blurImageData(rawData, smoothing)
         const p = buildPattern(imgData, stitchW, stitchH, numColors)
         const s = new Array(stitchW * stitchH).fill(false)
         setPattern(p)
@@ -451,6 +500,20 @@ export function CrossStitch() {
                 className="cs-range"
               />
               <div className="cs-range-labels"><span>2</span><span>100</span></div>
+            </div>
+
+            <div className="cs-field">
+              <label htmlFor="cs-smoothing">Smoothing: <strong>{SMOOTHING_LABELS[smoothing]}</strong></label>
+              <input
+                id="cs-smoothing"
+                type="range"
+                min={0}
+                max={3}
+                value={smoothing}
+                onChange={e => setSmoothing(+e.target.value)}
+                className="cs-range"
+              />
+              <div className="cs-range-labels"><span>None</span><span>Strong</span></div>
             </div>
 
             <div className="cs-field">
